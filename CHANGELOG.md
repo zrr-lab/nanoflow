@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## v0.3.0 (2024-10-18)
+
+### ♻️ refactor
+
+* ♻️ refactor: move some cli code to `cli.py` ([`c86b839`](https://github.com/zrr-lab/nanoflow/commit/c86b839b3e1a60a76653af68d1cdbece064e90f2))
+
+### ✨ feat
+
+* ✨ feat: support `args` in task config ([`196fb80`](https://github.com/zrr-lab/nanoflow/commit/196fb809671f369099252d9de5a213a8cda35173))
+
+### 👷 ci
+
+* 👷 ci: improve release ([`d903e31`](https://github.com/zrr-lab/nanoflow/commit/d903e31921d5c92e5e61d17175af67c019e39d0e))
+
+### 📝 docs
+
+* 📝 docs: update readme ([`5939118`](https://github.com/zrr-lab/nanoflow/commit/59391183b1ce531f22db498cbdf1b48271b5119c))
+
+### 🔧 chore
+
+* 🔧 chore: update README and add LICENCE ([`739888d`](https://github.com/zrr-lab/nanoflow/commit/739888dee5fc25fb1228b4d43450e33e765692de))
+
 ## v0.2.0 (2024-10-08)
 
 ### ✨ feat
