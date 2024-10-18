@@ -20,9 +20,11 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 - GPU resource management for parallel task execution
 
 ## Roadmap
-
 - [ ] Integration with FastAPI for managing workflows as web APIs
 - [ ] Enhance TUI, improve task log display, use terminal-like style
+- [ ] Support for multiple configuration files or folders
+- [ ] Support for passing parameters and matrix
+- [x] Split commands into command and args to avoid too long
 
 ## Installation [![Downloads](https://pepy.tech/badge/nanoflow)](https://pepy.tech/project/nanoflow)
 

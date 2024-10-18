@@ -6,13 +6,25 @@ from pydantic import BaseModel
 
 
 class TaskConfig(BaseModel):
+    """Task config.
+
+    Example:
+    >>> config = TaskConfig(command="echo", args=["task1"])
+    >>> config.get_command()
+    'echo task1'
+    """
+
     command: str
+    args: list[str] = []
     deps: list[str] = []
+
+    def get_command(self) -> str:
+        return f"{self.command} {' '.join(self.args)}"
 
 
 class WorkflowConfig(BaseModel):
     """
-    Workflow config file.
+    Workflow config.
 
     Example:
     >>> config = WorkflowConfig(
@@ -33,7 +45,7 @@ class WorkflowConfig(BaseModel):
     resources: Literal["gpus"] | list[str] | None = None
 
     def to_nodes(self) -> dict[str, list[str]]:
-        nodes = {}
+        nodes: dict[str, list[str]] = {}
         for task_name, task_config in self.tasks.items():
             nodes[task_name] = task_config.deps
 

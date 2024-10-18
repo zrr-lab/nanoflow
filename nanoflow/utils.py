@@ -105,7 +105,7 @@ async def execute_parallel_tasks(
 
     parallel_tasks = [
         [
-            create_gpu_task(node, config.tasks[node].command, gpu_pool=gpu_pool, update_hook=update_hook)
+            create_gpu_task(node, config.tasks[node].get_command(), gpu_pool=gpu_pool, update_hook=update_hook)
             for node in nodes
         ]
         for nodes in group_parallel_nodes(config.to_nodes())
