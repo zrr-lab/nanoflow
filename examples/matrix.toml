@@ -11,5 +11,12 @@ command = "sleep 1 && echo '{content}:a'"
 command = "sleep 2 && echo '{content}:b'"
 
 [tasks.c]
-command = "sleep 1 && echo '{content}:c'"
+command = "sleep {time} && echo '{content}:c'"
+
+[tasks.c.matrix]
+time = ["1", "2", "3"]
+
+[tasks.d]
+command = "sleep 1 && echo '{content}:d'"
+# You can't depend on a task that has matrix, such as c.
 deps = ["a", "b"]

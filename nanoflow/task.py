@@ -44,7 +44,7 @@ class Task(BaseModel, Generic[P, R]):
             try:
                 if self.resource_pool is not None:
                     resource = await self.resource_pool.acquire()
-                    logger.info(f"Acquired resource: {resource}")
+                    logger.info(f"Acquired resource by task [blue]{self.name}[/blue]: {resource}")
                     if self.resource_modifier is not None:
                         fn = self.resource_modifier(self.fn, resource)
                     else:
