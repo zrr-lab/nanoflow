@@ -4,13 +4,17 @@ import pytest
 
 
 @pytest.mark.benchmark
-def test_cli():
+@pytest.mark.parametrize(
+    "config_path",
+    ["./examples/simple.toml", "./examples/matrix.toml"],
+)
+def test_cli(config_path: str):
     from typer.testing import CliRunner
 
     from nanoflow.__main__ import app
 
     runner = CliRunner()
-    result = runner.invoke(app, ["./examples/simple.toml"])
+    result = runner.invoke(app, [config_path])
     assert result.exit_code == 0, f"Exit code was {result.exit_code}, expected 0. Error: {result.exc_info}"
 
 

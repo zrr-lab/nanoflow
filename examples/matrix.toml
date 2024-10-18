@@ -1,0 +1,15 @@
+name = "matrix example"
+resources = ["fake-device-1", "fake-device-2", "fake-device-3"]
+
+[matrix]
+content = ["a", "b", "c"]
+
+[tasks.a]
+command = "sleep 1 && echo '{content}:a'"
+
+[tasks.b]
+command = "sleep 2 && echo '{content}:b'"
+
+[tasks.c]
+command = "sleep 1 && echo '{content}:c'"
+deps = ["a", "b"]
