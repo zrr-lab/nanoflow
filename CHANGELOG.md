@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.5.0 (2024-10-18)
+
+### ✨ feat
+
+* ✨ feat: support `matrix` in task config ([`f7430a3`](https://github.com/zrr-lab/nanoflow/commit/f7430a3cd1a56221ab9b1660438a4c9b572d1c25))
+
 ## v0.4.0 (2024-10-18)
 
 ### ✨ feat
