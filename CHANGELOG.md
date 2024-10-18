@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.4.0 (2024-10-18)
+
+### ✨ feat
+
+* ✨ feat: support `matrix` in flow config ([`a0218d5`](https://github.com/zrr-lab/nanoflow/commit/a0218d563098ee133c17524d3c527ec64a07575c))
+
 ## v0.3.0 (2024-10-18)
 
 ### ♻️ refactor
