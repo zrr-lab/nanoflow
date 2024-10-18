@@ -1,9 +1,9 @@
 # Nanoflow
 <p align="center">
    <a href="https://python.org/" target="_blank"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/nanoflow?logo=python&style=flat-square"></a>
-   <a href="https://pypi.org/project/nanoflow/" target="_blank"><img src="https://img.shields.io/pypi/v/nano flow?style=flat-square" alt="pypi"></a>
+   <a href="https://pypi.org/project/nanoflow/" target="_blank"><img src="https://img.shields.io/pypi/v/nanoflow?style=flat-square" alt="pypi"></a>
    <a href="https://pypi.org/project/nanoflow/" target="_blank"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/nanoflow?style=flat-square"></a>
-   <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/github/license/nanoflow-dev/nanoflow?style=flat-square"></a>
+   <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/pypi/l/nanoflow?style=flat-square"></a>
    <br/>
    <a href="https://github.com/astral-sh/uv"><img alt="uv" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=flat-square"></a>
    <a href="https://github.com/astral-sh/ruff"><img alt="ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json&style=flat-square"></a>

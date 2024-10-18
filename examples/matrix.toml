@@ -5,18 +5,18 @@ resources = ["fake-device-1", "fake-device-2", "fake-device-3"]
 content = ["a", "b", "c"]
 
 [tasks.a]
-command = "sleep 1 && echo '{content}:a'"
+command = "sleep 0.1 && echo '{content}:a'"
 
 [tasks.b]
-command = "sleep 2 && echo '{content}:b'"
+command = "sleep 0.2 && echo '{content}:b'"
 
 [tasks.c]
 command = "sleep {time} && echo '{content}:c'"
 
 [tasks.c.matrix]
-time = ["1", "2", "3"]
+time = ["0.1", "0.2", "0.3"]
 
 [tasks.d]
-command = "sleep 1 && echo '{content}:d'"
+command = "sleep 0.1 && echo '{content}:d'"
 # You can't depend on a task that has matrix, such as c.
 deps = ["a", "b"]
