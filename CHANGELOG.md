@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.5.1 (2024-10-19)
+
+### ⚡ perf
+
+* ⚡ perf: improve user experience with clearer log messages ([`0c20b5d`](https://github.com/zrr-lab/nanoflow/commit/0c20b5d2a698138183117259661ef4cdd5731e1b))
+
+### 📝 docs
+
+* 📝 docs: update README ([`c6a4aa7`](https://github.com/zrr-lab/nanoflow/commit/c6a4aa7d5dbf3adbe4c07dc92688154607e8f745))
+
 ## v0.5.0 (2024-10-18)
 
 ### ✨ feat
