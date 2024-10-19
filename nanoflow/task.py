@@ -60,7 +60,7 @@ class Task(BaseModel, Generic[P, R]):
                 logger.error(f"Failed to execute task: {e}")
                 if retry_interval:
                     retry = retry_interval.pop(0)
-                    logger.info(f"Retry task after {retry} seconds")
+                    logger.info(f"Retry task `{self.name}` after {retry} seconds")
                     await asyncio.sleep(retry)
                     return await wrapper_fn()
                 raise e

@@ -76,7 +76,7 @@ def create_gpu_task(
                 process = subprocess.Popen(command, shell=True, env=environ)
             returncode = process.wait()
             if returncode != 0:
-                raise TaskProcessError(f"Task failed with return code {returncode}")
+                raise TaskProcessError(f"Task `{name}` failed with return code {returncode}")
 
         return inner_fn
 
