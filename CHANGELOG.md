@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.5.2 (2024-10-20)
+
+### ✅ test
+
+* ✅ test: add tests for error handling ([`181f540`](https://github.com/zrr-lab/nanoflow/commit/181f5402bd9c6d3ae8ac180927cb7add5c1bdda3))
+
+* ✅ test: add more tests for task config ([`1346f48`](https://github.com/zrr-lab/nanoflow/commit/1346f48323520f38c33984ca7b1700ac08d66638))
+
+### 🐛 fix
+
+* 🐛 fix: fix issue where task does not execute when `resource_pool` is `None` ([`42603ac`](https://github.com/zrr-lab/nanoflow/commit/42603ac017383608dbaad7dca1c482c9b149bff6))
+
 ## v0.5.1 (2024-10-19)
 
 ### ⚡ perf
