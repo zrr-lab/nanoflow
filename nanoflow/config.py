@@ -29,6 +29,11 @@ class TaskConfig(BaseModel):
     >>> config = TaskConfig(command="echo", args=["{task}"])
     >>> config.format({"task": "task1"}).get_command()
     'echo task1'
+    >>> config.get_command()
+    'echo {task}'
+    >>> config.format({"task": "task1"}, inplace=True)
+    >>> config.get_command()
+    'echo task1'
     >>> config = TaskConfig(command="echo", args=["{task}"], matrix={"task": ["task1", "task2"]})
     >>> for task in config.wrap_matrix():
     ...     print(task.get_command())

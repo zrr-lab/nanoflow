@@ -1,5 +1,4 @@
 name = "simple example"
-resources = ["fake-device-1", "fake-device-2"]
 
 [tasks.a]
 command = "sleep 0.1 && echo 'a'"

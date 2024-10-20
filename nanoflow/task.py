@@ -40,7 +40,7 @@ class Task(BaseModel, Generic[P, R]):
     def submit(self, *args: P.args, **kwargs: P.kwargs) -> asyncio.Task[R]:
         retry_interval = self.retry_interval[:]
 
-        async def wrapper_fn():
+        async def wrapper_fn() -> R:
             try:
                 if self.resource_pool is not None:
                     resource = await self.resource_pool.acquire()
