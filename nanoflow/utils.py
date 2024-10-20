@@ -51,6 +51,28 @@ def get_available_gpus(threshold=0.05) -> list[str]:
     return free_gpus
 
 
+def create_command(
+    name: str,
+    command: str,
+    *,
+    update_hook: Callable[[str, bytes], None] | None = None,
+    environ: dict[str, str] | None = None,
+) -> Callable[[], None]:
+    def inner_fn() -> None:
+        if update_hook is not None:
+            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=environ)
+            assert process.stdout is not None
+            for line in process.stdout:
+                update_hook(name, line)
+        else:
+            process = subprocess.Popen(command, shell=True, env=environ)
+        returncode = process.wait()
+        if returncode != 0:
+            raise TaskProcessError(f"Task `{name}` failed with return code {returncode}")
+
+    return inner_fn
+
+
 def create_gpu_task(
     name: str,
     command: str,
@@ -63,27 +85,13 @@ def create_gpu_task(
         environ = os.environ.copy()
         environ["CUDA_VISIBLE_DEVICES"] = str(resource)
         environ["FORCE_COLOR"] = "1"
+        return create_command(name, command, update_hook=update_hook, environ=environ)
 
-        def inner_fn() -> None:
-            if update_hook is not None:
-                process = subprocess.Popen(
-                    command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=environ
-                )
-                assert process.stdout is not None
-                for line in process.stdout:
-                    update_hook(name, line)
-            else:
-                process = subprocess.Popen(command, shell=True, env=environ)
-            returncode = process.wait()
-            if returncode != 0:
-                raise TaskProcessError(f"Task `{name}` failed with return code {returncode}")
-
-        return inner_fn
-
-    @task(name=name, resource_pool=gpu_pool, resource_modifier=set_visible_gpu)
-    def dummy_fn() -> None: ...
-
-    return dummy_fn
+    if gpu_pool is None:
+        return task(name=name)(create_command(name, command, update_hook=update_hook))
+    else:
+        # TODO: support custom_pool
+        return task(name=name, resource_pool=gpu_pool, resource_modifier=set_visible_gpu)(lambda: None)
 
 
 @workflow
