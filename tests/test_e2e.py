@@ -18,6 +18,16 @@ def test_cli(config_path: str):
     assert result.exit_code == 0, f"Exit code was {result.exit_code}, expected 0. Error: {result.exc_info}"
 
 
+def test_cli_error():
+    from typer.testing import CliRunner
+
+    from nanoflow.__main__ import app
+
+    runner = CliRunner()
+    result = runner.invoke(app, ["./examples/error.toml"])
+    assert result.exit_code != 0
+
+
 @pytest.mark.asyncio
 async def test_tui():
     import toml
