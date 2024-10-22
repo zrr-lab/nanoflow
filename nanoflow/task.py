@@ -9,15 +9,15 @@ from pydantic import BaseModel, ConfigDict
 
 from .resource_pool import ResourcePool
 
-P = ParamSpec("P")
-R = TypeVar("R")
+InputT = ParamSpec("InputT")
+RetT = TypeVar("RetT")
 
 
 class TaskProcessError(Exception):
     """Exception raised when a task process fails."""
 
 
-class Task(BaseModel, Generic[P, R]):
+class Task(BaseModel, Generic[InputT, RetT]):
     """
     Task to be executed by the workflow.
 
@@ -29,18 +29,22 @@ class Task(BaseModel, Generic[P, R]):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
     name: str
-    fn: Callable[P, R]
+    fn: Callable[InputT, RetT]
     retry_interval: list[int] = [10, 30, 60]
     resource_pool: ResourcePool[Any] | None = None
-    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None
+    resource_modifier: Callable[[Callable[InputT, RetT], Any], Callable[InputT, RetT]] | None = None
 
-    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:
+    def __call__(self, *args: InputT.args, **kwargs: InputT.kwargs) -> RetT:
+        if self.resource_pool is not None or self.resource_modifier is not None:
+            logger.warning(
+                f"Task `{self.name}` has a resource pool or resource modifier, which is not supported in sync mode"
+            )
         return self.fn(*args, **kwargs)
 
-    def submit(self, *args: P.args, **kwargs: P.kwargs) -> asyncio.Task[R]:
+    def submit(self, *args: InputT.args, **kwargs: InputT.kwargs) -> asyncio.Task[RetT]:
         retry_interval = self.retry_interval[:]
 
-        async def wrapper_fn() -> R:
+        async def wrapper_fn() -> RetT:
             try:
                 if self.resource_pool is not None:
                     resource = await self.resource_pool.acquire()
@@ -69,7 +73,7 @@ class Task(BaseModel, Generic[P, R]):
 
 
 @overload
-def task(fn: Callable[P, R]) -> Task[P, R]: ...
+def task(fn: Callable[InputT, RetT]) -> Task[InputT, RetT]: ...
 
 
 @overload
@@ -77,17 +81,17 @@ def task(
     *,
     name: str | None = None,
     resource_pool: ResourcePool[Any] | None = ...,
-    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None,
-) -> Callable[[Callable[P, R]], Task[P, R]]: ...
+    resource_modifier: Callable[[Callable[InputT, RetT], Any], Callable[InputT, RetT]] | None = None,
+) -> Callable[[Callable[InputT, RetT]], Task[InputT, RetT]]: ...
 
 
 def task(
-    fn: Callable[P, R] | None = None,
+    fn: Callable[InputT, RetT] | None = None,
     *,
     name: str | None = None,
     resource_pool: ResourcePool[Any] | None = None,
-    resource_modifier: Callable[[Callable[P, R], Any], Callable[P, R]] | None = None,
-) -> Callable[[Callable[P, R]], Task[P, R]] | Task[P, R]:
+    resource_modifier: Callable[[Callable[InputT, RetT], Any], Callable[InputT, RetT]] | None = None,
+) -> Callable[[Callable[InputT, RetT]], Task[InputT, RetT]] | Task[InputT, RetT]:
     """Decorator to create a task.
 
     Example:
@@ -103,7 +107,7 @@ def task(
     'custom_name'
     """
 
-    def decorator(fn: Callable[P, R]) -> Task[P, R]:
+    def decorator(fn: Callable[InputT, RetT]) -> Task[InputT, RetT]:
         return Task(
             name=name or getattr(fn, "__name__", "unnamed"),
             fn=fn,

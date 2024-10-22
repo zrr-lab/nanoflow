@@ -38,6 +38,8 @@ async def test_tui():
     workflow_config = WorkflowConfig.model_validate(toml.load("./examples/simple.toml"))
     app = Nanoflow(workflow_config)
     async with app.run_test() as pilot:
+        await pilot.press("d")
+        await pilot.press("f1")
         assert app.is_running is True
         await pilot.press("q")
         assert app.is_running is False
