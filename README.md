@@ -78,6 +78,6 @@ if __name__ == "__main__":
 To use Nanoflow as a cli or tui, you can use the following command:
 
 ```shell
-nanoflow examples/simple.toml
-nanoflow examples/simple.toml --use-tui
+nanoflow run examples/simple.toml
+nanoflow run examples/simple.toml --use-tui
 ```

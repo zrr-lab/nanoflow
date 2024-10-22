@@ -26,7 +26,9 @@ class Executor:
         layered_nodes = layer_nodes(config.to_nodes())
         resources = config.resources
         if resources == "gpus":
-            resource_pool = ResourcePool(get_available_gpus())
+            gpus = get_available_gpus()
+            logger.info(f"Found {len(gpus)} GPUs")
+            resource_pool = ResourcePool(gpus)
             layered_tasks = [
                 [
                     create_gpu_task(node, config.tasks[node].get_command(), pool=resource_pool, update_hook=update_hook)

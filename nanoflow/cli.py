@@ -13,6 +13,7 @@ from rich.logging import RichHandler
 
 from nanoflow import WorkflowConfig
 from nanoflow.executor import Executor
+from nanoflow.utils import layer_nodes
 
 app = typer.Typer()
 
@@ -40,3 +41,15 @@ def run(config_path: Path, use_tui: bool = False):
     else:
         executor = Executor.from_configs(workflow_config)
         executor.run()
+
+
+@app.command()
+def generate_commands(config_path: Path):
+    handler = RichHandler(highlighter=NullHighlighter(), markup=True)
+    init_logger("DEBUG", handler)
+    workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
+    layered_nodes = layer_nodes(workflow_config.to_nodes())
+    for i, layer in enumerate(layered_nodes):
+        logger.info(f"Layer {i}")
+        for node in layer:
+            print(workflow_config.tasks[node].get_command())

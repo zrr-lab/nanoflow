@@ -14,7 +14,7 @@ def test_cli(config_path: str):
     from nanoflow.__main__ import app
 
     runner = CliRunner()
-    result = runner.invoke(app, [config_path])
+    result = runner.invoke(app, ["run", config_path])
     assert result.exit_code == 0, f"Exit code was {result.exit_code}, expected 0. Error: {result.exc_info}"
 
 
@@ -24,7 +24,7 @@ def test_cli_error():
     from nanoflow.__main__ import app
 
     runner = CliRunner()
-    result = runner.invoke(app, ["./examples/error.toml"])
+    result = runner.invoke(app, ["run", "./examples/error.toml"])
     assert result.exit_code != 0
 
 
