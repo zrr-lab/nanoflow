@@ -21,3 +21,14 @@ class ResourcePool(Generic[T]):
 
     def release(self, res: T):
         self.resources[res].release()
+
+
+class UnlimitedPool(ResourcePool[T]):
+    def __init__(self, resource: T):
+        self.resource = resource
+
+    async def acquire(self) -> T:
+        return self.resource
+
+    def release(self, res: T):
+        pass
