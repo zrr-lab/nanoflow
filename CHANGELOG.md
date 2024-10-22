@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.7.0 (2024-10-22)
+
+### ✨ feat
+
+* ✨ feat: add support for generate-commands ([`83de3ed`](https://github.com/zrr-lab/nanoflow/commit/83de3edab873cd6a9630a3ab2908f3da6fbbf625))
+
 ## v0.6.0 (2024-10-22)
 
 ### ♻️ refactor
