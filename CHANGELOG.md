@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.6.0 (2024-10-22)
+
+### ♻️ refactor
+
+* ♻️ refactor: format task name based on its own matrix ([`687e65b`](https://github.com/zrr-lab/nanoflow/commit/687e65badabb225029933c967e58d2c7fe0655d0))
+
+### ✨ feat
+
+* ✨ feat: add basic `Executor` ([`c5b8d87`](https://github.com/zrr-lab/nanoflow/commit/c5b8d877387b5301d84090de0e36857af13571f1))
+
+* ✨ feat: add `UnlimitedPool` ([`6bd4f0b`](https://github.com/zrr-lab/nanoflow/commit/6bd4f0bc52bf2f4df30850a7a32e2773703ced84))
+
 ## v0.5.2 (2024-10-20)
 
 ### ✅ test
