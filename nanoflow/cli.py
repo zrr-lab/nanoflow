@@ -24,10 +24,24 @@ def init_logger(log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICA
 
 
 @app.command()
-def run(config_path: Path, use_tui: bool = False):
+def run(
+    config_path: Path,
+    *,
+    use_tui: bool = False,
+    try_run: bool = False,
+):
     handler = RichHandler(highlighter=NullHighlighter(), markup=True)
     init_logger("DEBUG", handler)
     workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
+    if try_run:
+        if use_tui:
+            logger.warning("`use-tui` is ignored when try-run is used")
+        layered_nodes = layer_nodes(workflow_config.to_nodes())
+        for i, layer in enumerate(layered_nodes):
+            logger.info(f"Layer {i}")
+            for node in layer:
+                print(workflow_config.tasks[node].get_command())
+        return
     if use_tui:  # pragma: no cover
         from nanoflow.tui import Nanoflow
 
@@ -44,12 +58,5 @@ def run(config_path: Path, use_tui: bool = False):
 
 
 @app.command()
-def generate_commands(config_path: Path):
-    handler = RichHandler(highlighter=NullHighlighter(), markup=True)
-    init_logger("DEBUG", handler)
-    workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
-    layered_nodes = layer_nodes(workflow_config.to_nodes())
-    for i, layer in enumerate(layered_nodes):
-        logger.info(f"Layer {i}")
-        for node in layer:
-            print(workflow_config.tasks[node].get_command())
+def try_run(config_path: Path):
+    run(config_path, try_run=True)

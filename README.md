@@ -1,9 +1,13 @@
 # Nanoflow
+
 <p align="center">
    <a href="https://python.org/" target="_blank"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/nanoflow?logo=python&style=flat-square"></a>
    <a href="https://pypi.org/project/nanoflow/" target="_blank"><img src="https://img.shields.io/pypi/v/nanoflow?style=flat-square" alt="pypi"></a>
    <a href="https://pypi.org/project/nanoflow/" target="_blank"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/nanoflow?style=flat-square"></a>
    <a href="LICENSE"><img alt="LICENSE" src="https://img.shields.io/pypi/l/nanoflow?style=flat-square"></a>
+   <br/>
+   <a href="https://codecov.io/gh/zrr-lab/nanoflow" ><img src="https://codecov.io/gh/zrr-lab/nanoflow/graph/badge.svg?token=l0m6mbJfad"/></a>
+   <a href="https://codspeed.io/zrr-lab/nanoflow"><img src="https://img.shields.io/endpoint?url=https://codspeed.io/badge.json" alt="CodSpeed Badge"/></a>
    <br/>
    <a href="https://github.com/astral-sh/uv"><img alt="uv" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json&style=flat-square"></a>
    <a href="https://github.com/astral-sh/ruff"><img alt="ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json&style=flat-square"></a>
@@ -18,8 +22,10 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 - Support for task dependencies
 - Retry functionality for tasks
 - GPU resource management for parallel task execution
+- Support flow matrix and task matrix
 
 ## Roadmap
+
 - [x] Split commands into command and args to avoid too long
 - [ ] Integration with FastAPI for managing workflows as web APIs
 - [ ] Enhance TUI, improve task log display, use terminal-like style
@@ -32,16 +38,19 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 ### Installation using pip/pipx/uv
 
 Before this, please ensure that Python 3.10 or above is installed, along with pip.
+
 ```shell
 pip install nanoflow
 ```
 
 If you want to try the Nightly version, you can try
+
 ```shell
 pip install git+https://github.com/zrr1999/nanoflow@main
 ```
 
 Before this, please ensure that [pipx](https://github.com/pypa/pipx)/[uv](https://github.com/astral-sh/uv) is installed.
+
 ```shell
 pipx install nanoflow
 uv tool install nanoflow
