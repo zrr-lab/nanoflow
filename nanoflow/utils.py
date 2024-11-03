@@ -31,22 +31,6 @@ def layer_nodes(node_dependencies: dict[str, list[str]]) -> list[list[str]]:
     return parallel_nodes
 
 
-@task
-def get_available_gpus(threshold: float = 0.05) -> list[str]:
-    gpu_info: str = subprocess.check_output(
-        ["nvidia-smi", "--query-gpu=memory.used,memory.total", "--format=csv,nounits,noheader"]
-    ).decode("utf-8")
-    gpus = [tuple(map(int, line.split(","))) for line in gpu_info.strip().split("\n")]
-
-    free_gpus = []
-    for i, (used, total) in enumerate(gpus):
-        usage_ratio = used / total
-        if usage_ratio <= threshold:
-            free_gpus.append(str(i))
-
-    return free_gpus
-
-
 def create_command(
     name: str,
     command: str,

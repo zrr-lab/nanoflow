@@ -6,8 +6,8 @@ from collections.abc import Callable
 from loguru import logger
 
 from .config import WorkflowConfig
-from .resource_pool import ResourcePool
-from .utils import create_gpu_task, create_task, get_available_gpus, layer_nodes
+from .resource_pool import GPUResourcePool, ResourcePool
+from .utils import create_gpu_task, create_task, layer_nodes
 from .workflow import Workflow
 
 
@@ -26,9 +26,7 @@ class Executor:
         layered_nodes = layer_nodes(config.to_nodes())
         resources = config.resources
         if resources == "gpus":
-            gpus = get_available_gpus()
-            logger.info(f"Found {len(gpus)} GPUs")
-            resource_pool = ResourcePool(gpus)
+            resource_pool = GPUResourcePool()
             layered_tasks = [
                 [
                     create_gpu_task(node, config.tasks[node].get_command(), pool=resource_pool, update_hook=update_hook)
