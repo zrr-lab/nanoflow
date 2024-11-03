@@ -23,6 +23,7 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 - Retry functionality for tasks
 - GPU resource management for parallel task execution
 - Support flow matrix and task matrix
+- Dynamic update resource pool
 
 ## Roadmap
 
@@ -37,7 +38,7 @@ Nanoflow is a simple and efficient workflow framework for Python. It allows you 
 
 ### Installation using pip/pipx/uv
 
-Before this, please ensure that Python 3.10 or above is installed, along with pip.
+Before this, please ensure that Python 3.12 or above is installed, along with pip.
 
 ```shell
 pip install nanoflow
