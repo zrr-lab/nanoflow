@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.8.0 (2024-11-03)
+
+### ♻️ refactor
+
+* ♻️ refactor: change command name `generate_commands` to `try_run` and add arg for run command ([`863804b`](https://github.com/zrr-lab/nanoflow/commit/863804bf1b38cf97816198cd0292cd88d601eb45))
+
+### ✨ feat
+
+* ✨ feat: add `DynamicResourcePool` and `GPUResourcePool` ([`f650d87`](https://github.com/zrr-lab/nanoflow/commit/f650d8729f8f95f66e1307f45351ab8d454bb451))
+
+### ⬆️ deps
+
+* ⬆️ deps: upgrade python to 3.12 ([`4c1c664`](https://github.com/zrr-lab/nanoflow/commit/4c1c664be72f500269500ab09d9f603ae5a6131a))
+
 ## v0.7.0 (2024-10-22)
 
 ### ✨ feat
