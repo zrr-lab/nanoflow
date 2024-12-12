@@ -35,10 +35,10 @@ def run(
     workflow_config = WorkflowConfig.model_validate(toml.load(config_path))
     if try_run:
         if use_tui:
-            logger.warning("`use-tui` is ignored when try-run is used")
+            logger.warning("[blue bold]use-tui[/] is ignored when try-run is used")
         layered_nodes = layer_nodes(workflow_config.to_nodes())
         for i, layer in enumerate(layered_nodes):
-            logger.info(f"Layer {i}")
+            logger.info(f"Layer [blue bold]{i}[/]")
             for node in layer:
                 print(workflow_config.tasks[node].get_command())
         return

@@ -68,15 +68,19 @@ class GPUResourcePool(DynamicResourcePool[str]):
 
     def get_available_resources(self) -> set[str]:
         gpu_info: str = subprocess.check_output(
-            ["nvidia-smi", "--query-gpu=memory.used,memory.total", "--format=csv,nounits,noheader"]
+            [
+                "nvidia-smi",
+                "--query-gpu=index,utilization.gpu,memory.used,memory.total",
+                "--format=csv,nounits,noheader",
+            ]
         ).decode("utf-8")
         gpus = [tuple(map(int, line.split(","))) for line in gpu_info.strip().split("\n")]
 
         free_gpus = set()
-        for i, (used, total) in enumerate(gpus):
-            usage_ratio = used / total
-            if usage_ratio <= self.threshold:
-                free_gpus.add(str(i))
+        for index, gpu_usage_ratio, used_mem, total_mem in gpus:
+            mem_usage_ratio = used_mem / total_mem
+            if gpu_usage_ratio <= self.threshold and mem_usage_ratio <= self.threshold:
+                free_gpus.add(str(index))
 
         return free_gpus
 
