@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.9.0 (2024-12-17)
+
+### ✨ feat
+
+* ✨ feat: add functionality for getting available resources by utilization ([`7c5f095`](https://github.com/zrr-lab/nanoflow/commit/7c5f0959db79b90247b130a77283080146d23c4d))
+
+### 🐛 fix
+
+* 🐛 fix: fix task matrix when `workflow.matrix` is `None` ([`27da9a5`](https://github.com/zrr-lab/nanoflow/commit/27da9a5f1f5fb3696e93289fe9104fdc0dbe1377))
+
+### 📝 docs
+
+* 📝 docs: update readme ([`f7739ee`](https://github.com/zrr-lab/nanoflow/commit/f7739ee5b2ea2aef5c575ebfeff92cb147adb2c1))
+
 ## v0.8.0 (2024-11-03)
 
 ### ♻️ refactor
