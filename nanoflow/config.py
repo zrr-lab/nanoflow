@@ -112,10 +112,12 @@ class WorkflowConfig(BaseModel):
 
     def model_post_init(self, __context: Any) -> None:
         if self.matrix is None:
-            return
+            flattened_matrix = [{}]
+        else:
+            flattened_matrix = flatten_matrix(self.matrix)
 
         tasks: dict[str, TaskConfig] = {}
-        for i, template_values in enumerate(flatten_matrix(self.matrix)):
+        for i, template_values in enumerate(flattened_matrix):
             for task_name, task_config in self.tasks.items():
                 if task_config.matrix is not None:
                     wrapped_tasks = task_config.wrap_matrix(task_name)
