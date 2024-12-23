@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.10.0 (2024-12-23)
+
+### ✨ feat
+
+* ✨ feat: add state for `Executor` when running ([`fe2b122`](https://github.com/zrr-lab/nanoflow/commit/fe2b122fefcd96d20c5d797603db424b82f1b129))
+
 ## v0.9.0 (2024-12-17)
 
 ### ✨ feat
