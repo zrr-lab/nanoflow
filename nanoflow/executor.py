@@ -1,20 +1,38 @@
 from __future__ import annotations
 
 import asyncio
+import datetime
 from collections.abc import Callable
 
+import humanize
 from loguru import logger
+from pydantic import BaseModel
 
 from .config import WorkflowConfig
 from .resource_pool import GPUResourcePool, ResourcePool
+from .task import Task
 from .utils import create_gpu_task, create_task, layer_nodes
-from .workflow import Workflow
+
+
+class ExecutorState(BaseModel):
+    total_task_count: int
+    running_task_count: int = 0
+    completed_task_count: int = 0
+    failed_task_count: int = 0
+
+    @property
+    def remaining_task_count(self) -> int:
+        return self.total_task_count - self.completed_task_count - self.failed_task_count
+
+    @property
+    def progress(self) -> str:
+        return f"{self.completed_task_count}/{self.total_task_count}"
 
 
 class Executor:
-    def __init__(self, workflow: Workflow):
-        # TODO: support multiple workflows
-        self.workflow = workflow
+    def __init__(self, tasks: list[list[Task[..., None]]]):
+        self.tasks = tasks
+        self.state = ExecutorState(total_task_count=sum(len(layer) for layer in tasks))
 
     @classmethod
     def from_configs(
@@ -48,16 +66,27 @@ class Executor:
                 for nodes in layered_nodes
             ]
 
-        async def workflow_fn():
-            for tasks in layered_tasks:
-                start_time = asyncio.get_event_loop().time()
-                logger.info(f"Starting execution of {len(tasks)} tasks")
-                await asyncio.gather(*[task.submit() for task in tasks])
-                end_time = asyncio.get_event_loop().time()
-                logger.info(f"Execution completed, actual time taken: {end_time - start_time:.2f} seconds")
+        return cls(layered_tasks)
 
-        workflow = Workflow(name=config.name, fn=workflow_fn)
-        return cls(workflow)
+    async def run_async(self):
+        for tasks in self.tasks:
+            start_time = asyncio.get_event_loop().time()
+            logger.info(f"Starting execution of [blue]{len(tasks)} tasks[/blue]")
+            running_tasks = [task.submit() for task in tasks]
+            self.state.running_task_count = len(running_tasks)
+            while len(running_tasks) > 0:
+                await asyncio.sleep(0.1)
+                completed_tasks = [task for task in running_tasks if task.done()]
+                if not completed_tasks:
+                    continue
+                running_tasks = [task for task in running_tasks if not task.done()]
+                self.state.completed_task_count += len(completed_tasks)
+                self.state.running_task_count -= len(running_tasks)
+            end_time = asyncio.get_event_loop().time()
+            logger.info(
+                f"Execution completed [blue]{self.state.progress}[/blue], actual time taken: "
+                f"[blue]{humanize.precisedelta(datetime.timedelta(seconds=end_time - start_time))}[/blue]"
+            )
 
     def run(self):
-        self.workflow.run()
+        asyncio.run(self.run_async())

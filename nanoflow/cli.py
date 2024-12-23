@@ -49,7 +49,7 @@ def run(
         executor = Executor.from_configs(workflow_config, update_hook=app.update_log)
 
         async def start():
-            await asyncio.gather(executor.workflow(), app.run_async())
+            await asyncio.gather(executor.run_async(), app.run_async())
 
         asyncio.run(start())
     else:

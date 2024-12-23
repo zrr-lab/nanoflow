@@ -10,7 +10,6 @@ from .resource_pool import ResourcePool, UnlimitedPool
 from .task import Task, TaskProcessError, task
 
 
-@task
 def layer_nodes(node_dependencies: dict[str, list[str]]) -> list[list[str]]:
     graph = nx.DiGraph()
 

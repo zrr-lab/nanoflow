@@ -11,6 +11,7 @@ dependencies = [
     "rich>=13.8.0",
     "typer>=0.12.5",
     "textual>=0.81.0",
+    "humanize>=4.11.0",
 ]
 requires-python = ">=3.12"
 readme = "README.md"
