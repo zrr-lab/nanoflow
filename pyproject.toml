@@ -96,6 +96,7 @@ source-includes = ["tests", "README.md"]
 
 [tool.uv]
 dev-dependencies = [
+    "pyright",
     "ruff",
     "xdoctest",
     "pytest",
