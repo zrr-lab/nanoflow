@@ -57,14 +57,6 @@ pipx install nanoflow
 uv tool install nanoflow
 ```
 
-### Source Installation
-
-```shell
-git clone https://github.com/zrr1999/nanoflow
-cd nanoflow
-pip install .
-```
-
 ## Usage
 
 To use Nanoflow as a package, you can define tasks and workflows using decorators:
