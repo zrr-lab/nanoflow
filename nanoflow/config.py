@@ -32,6 +32,7 @@ class TaskConfig(BaseModel):
     >>> config.get_command()
     'echo {task}'
     >>> config.format({"task": "task1"}, inplace=True)
+    TaskConfig(command='echo', matrix=None, args=['task1'], deps=[])
     >>> config.get_command()
     'echo task1'
     >>> config = TaskConfig(command="echo", args=["{task}"], matrix={"task": ["task1", "task2"]})
@@ -83,26 +84,26 @@ class WorkflowConfig(BaseModel):
 
     Example:
     >>> config = WorkflowConfig(
-    >>>     name="test",
-    >>>     resources="gpus",
-    >>>     tasks={
-    >>>         "task1": TaskConfig(command="echo 'task1'"),
-    >>>         "task2": TaskConfig(command="echo 'task2'", deps=["task1"]),
-    >>>         "task3": TaskConfig(command="echo 'task3'", deps=["task2"]),
-    >>>     }
-    >>> )
-    >>> config.to_nodes()
-    {'task1': [], 'task2': ['task1'], 'task3': ['task2']}
+    ...     name="test",
+    ...     resources="gpus",
+    ...     tasks={
+    ...         "task1": TaskConfig(command="echo 'task1'"),
+    ...         "task2": TaskConfig(command="echo 'task2'", deps=["task1"]),
+    ...         "task3": TaskConfig(command="echo 'task3'", deps=["task2"]),
+    ...     }
+    ... )
+    >>> sorted(config.to_nodes().items())
+    [('0_task1', []), ('0_task2', ['0_task1']), ('0_task3', ['0_task2'])]
     >>> config = WorkflowConfig(
-    >>>     name="test",
-    >>>     matrix={"a": ["1", "2"]},
-    >>>     tasks={
-    >>>         "task1": TaskConfig(command="echo 'task{a}'"),
-    >>>         "task2": TaskConfig(command="echo 'task{a}'", deps=["task1"]),
-    >>>     }
-    >>> )
-    >>> config.to_nodes()
-    {'0_task1': [], '0_task2': ['0_task1'], '1_task1': [], '1_task2': ['1_task1']}
+    ...     name="test",
+    ...     matrix={"a": ["1", "2"]},
+    ...     tasks={
+    ...         "task1": TaskConfig(command="echo 'task{a}'"),
+    ...         "task2": TaskConfig(command="echo 'task{a}'", deps=["task1"]),
+    ...     }
+    ... )
+    >>> sorted(config.to_nodes().items())
+    [('0_task1', []), ('0_task2', ['0_task1']), ('1_task1', []), ('1_task2', ['1_task1'])]
     """
 
     name: str

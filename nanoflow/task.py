@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import Callable
-from typing import Any, Generic, ParamSpec, TypeVar, overload
+from typing import Any, ParamSpec, TypeVar, overload
 
 from loguru import logger
 from pydantic import BaseModel, ConfigDict
@@ -17,7 +17,7 @@ class TaskProcessError(Exception):
     """Exception raised when a task process fails."""
 
 
-class Task(BaseModel, Generic[InputT, RetT]):
+class Task[**InputT, RetT](BaseModel):
     """
     Task to be executed by the workflow.
 
@@ -73,7 +73,7 @@ class Task(BaseModel, Generic[InputT, RetT]):
 
 
 @overload
-def task(fn: Callable[InputT, RetT]) -> Task[InputT, RetT]: ...
+def task[**InputT, RetT](fn: Callable[InputT, RetT]) -> Task[InputT, RetT]: ...
 
 
 @overload
