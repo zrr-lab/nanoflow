@@ -29,6 +29,14 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
+dev = [
+    "pyright",
+    "xdoctest",
+    "pytest",
+    "pytest-cov",
+    "pytest-codspeed",
+    "pytest-asyncio",
+]
 server = ["fastapi>=0.115.0", "uvicorn>=0.30.6"]
 plot = ["matplotlib>=3.9.0"]
 
@@ -93,17 +101,6 @@ write_template = "__version__ = '{}'"
 [tool.pdm.build]
 includes = ["nanoflow"]
 source-includes = ["tests", "README.md"]
-
-[tool.uv]
-dev-dependencies = [
-    "pyright",
-    "ruff",
-    "xdoctest",
-    "pytest",
-    "pytest-cov",
-    "pytest-codspeed",
-    "pytest-asyncio",
-]
 
 [tool.coverage.report]
 exclude_also = [

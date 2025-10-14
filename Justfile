@@ -5,8 +5,8 @@ install-tuna:
     uv sync --all-extras --dev --index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ruff:
-    uv run ruff check . --fix --unsafe-fixes
-    uv run ruff format .
+    uvx ruff check . --fix --unsafe-fixes
+    uvx ruff format .
 
 pyright:
     uv run pyright .
