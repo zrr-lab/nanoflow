@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import Callable, Coroutine
-from typing import Any, Generic, ParamSpec, overload
+from typing import Any, ParamSpec, overload
 
 from pydantic import BaseModel
 
 P = ParamSpec("P")
 
 
-class Workflow(BaseModel, Generic[P]):
+class Workflow[**P](BaseModel):
     name: str
     fn: Callable[P, Coroutine[Any, Any, None]]
 
@@ -21,14 +21,14 @@ class Workflow(BaseModel, Generic[P]):
 
 
 @overload
-def workflow(fn: Callable[P, Coroutine[Any, Any, None]]) -> Workflow[P]: ...
+def workflow[**P](fn: Callable[P, Coroutine[Any, Any, None]]) -> Workflow[P]: ...
 
 
 @overload
 def workflow(*, name: str | None = ...) -> Callable[[Callable[P, Coroutine[Any, Any, None]]], Workflow[P]]: ...
 
 
-def workflow(
+def workflow[**P](
     fn: Callable[P, Coroutine[Any, Any, None]] | None = None, *, name: str | None = None
 ) -> Callable[[Callable[P, Coroutine[Any, Any, None]]], Workflow[P]] | Workflow[P]:
     def decorator(fn: Callable[P, Coroutine[Any, Any, None]]) -> Workflow[P]:
