@@ -71,7 +71,6 @@ includes = ["nanoflow"]
 source-includes = ["tests", "README.md"]
 
 [tool.pyright]
-includes = ["nanoflow", "tests"]
 typeCheckingMode = "standard"
 reportPrivateImportUsage = false
 

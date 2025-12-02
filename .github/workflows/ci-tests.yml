@@ -1,4 +1,4 @@
-name: Test
+name: "CI: Tests"
 
 on:
   push:
@@ -7,8 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
+    name: Run Tests
     permissions:
       contents: read
     steps:
@@ -19,8 +20,6 @@ jobs:
         uses: astral-sh/setup-uv@v3
       - name: Install python 📦
         uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
