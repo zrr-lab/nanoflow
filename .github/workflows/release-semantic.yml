@@ -1,10 +1,12 @@
-name: Generate Release Tag
+name: "Release: Semantic Versioning & Publish"
 
 on:
   push:
     branches: [main]
+
 jobs:
-  build:
+  release:
+    name: Semantic Release & Publish
     runs-on: ubuntu-latest
     concurrency: release
     permissions:

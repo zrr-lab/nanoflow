@@ -1,4 +1,4 @@
-name: Test
+name: "CI: Tests"
 
 on:
   push:
@@ -7,10 +7,14 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
+    name: Run Tests
     permissions:
       contents: read
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Just 📦
@@ -20,7 +24,7 @@ jobs:
       - name: Install python 📦
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅

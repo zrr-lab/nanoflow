@@ -1,4 +1,5 @@
-name: Issue Auto Comment
+name: "Community: Issue Auto Comments"
+
 on:
   issues:
     types:
@@ -14,7 +15,8 @@ permissions:
   contents: read
 
 jobs:
-  run:
+  auto-comment:
+    name: Issue Auto Comments
     permissions:
       issues: write
       pull-requests: write
