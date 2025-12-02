@@ -4,37 +4,28 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     name: Lint
-    strategy:
-      matrix:
-        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Install python 📦
         uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Run pre-commit ✅
         uses: pre-commit/action@v3.0.1
 
   type-check:
     runs-on: ubuntu-latest
     name: Type Check
-    strategy:
-      matrix:
-        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v2
       - name: Install python 📦
         uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install dependencies 📦
         run: uv sync --all-extras --dev
       - name: Type Check 📦
