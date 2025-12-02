@@ -12,9 +12,6 @@ jobs:
     name: Run Tests
     permissions:
       contents: read
-    strategy:
-      matrix:
-        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Setup Just 📦
@@ -23,8 +20,6 @@ jobs:
         uses: astral-sh/setup-uv@v3
       - name: Install python 📦
         uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
