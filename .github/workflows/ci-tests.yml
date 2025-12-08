@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Just 📦
         uses: extractions/setup-just@v2
       - name: Install the latest version of uv 📦
