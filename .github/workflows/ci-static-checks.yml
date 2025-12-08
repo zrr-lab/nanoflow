@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install python 📦
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
       - name: Run pre-commit ✅
         uses: pre-commit/action@v3.0.1
 
@@ -25,7 +25,7 @@ jobs:
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v2
       - name: Install python 📦
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
       - name: Install dependencies 📦
         run: uv sync --all-extras --dev
       - name: Type Check 📦
