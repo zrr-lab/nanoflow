@@ -19,7 +19,7 @@ jobs:
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v3
       - name: Install python 📦
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
