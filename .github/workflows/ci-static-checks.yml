@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install python 📦
         uses: actions/setup-python@v4
       - name: Run pre-commit ✅
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Type Check
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v2
       - name: Install python 📦
