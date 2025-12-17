@@ -32,7 +32,7 @@ def workflow[**P](
     fn: Callable[P, Coroutine[Any, Any, None]] | None = None, *, name: str | None = None
 ) -> Callable[[Callable[P, Coroutine[Any, Any, None]]], Workflow[P]] | Workflow[P]:
     def decorator(fn: Callable[P, Coroutine[Any, Any, None]]) -> Workflow[P]:
-        return Workflow(name=name or fn.__name__, fn=fn)
+        return Workflow(name=name or getattr(fn, "__name__", "unnamed_workflow"), fn=fn)
 
     if fn is None:
         return decorator

@@ -8,8 +8,8 @@ ruff:
     uvx ruff check . --fix --unsafe-fixes
     uvx ruff format .
 
-pyright:
-    uv run pyright .
+ty:
+    uvx ty check
 
 test:
     uv run pytest --cov=nanoflow --codspeed --xdoc
@@ -17,7 +17,7 @@ test:
 
 check:
     just ruff
-    just pyright
+    just ty
 
 push:
     just test

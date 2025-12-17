@@ -29,4 +29,4 @@ jobs:
       - name: Install dependencies 📦
         run: uv sync --all-extras --dev
       - name: Type Check 📦
-        run: uv run pyright .
+        run: uvx ty check
