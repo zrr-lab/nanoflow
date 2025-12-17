@@ -17,7 +17,7 @@ jobs:
       - name: Setup Just 📦
         uses: extractions/setup-just@v2
       - name: Install the latest version of uv 📦
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v7
       - name: Install python 📦
         uses: actions/setup-python@v6
       - name: Install dependencies 📦
