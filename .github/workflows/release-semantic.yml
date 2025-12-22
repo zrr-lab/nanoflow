@@ -23,7 +23,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog: true
-          root_options: "-c releaserc.toml -vv"
+          config_file: releaserc.toml
+          verbosity: 2
       - name: Install the latest version of uv 📦
         uses: astral-sh/setup-uv@v7
       - name: Build distributions 📦
