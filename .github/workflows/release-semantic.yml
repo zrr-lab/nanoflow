@@ -30,7 +30,7 @@ jobs:
         run: uv build
       - name: Publish package distributions to GitHub Releases 🚀
         if: steps.release.outputs.released == 'true'
-        uses: python-semantic-release/publish-action@v9.21
+        uses: python-semantic-release/publish-action@v10.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.tag }}
