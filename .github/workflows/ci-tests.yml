@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
-        uses: CodSpeedHQ/action@v3
+        uses: CodSpeedHQ/action@v4
         with:
           run: just test
       - name: Upload coverage reports to Codecov 📦
