@@ -5,13 +5,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-
+permissions:
+  contents: read 
+  id-token: write
 jobs:
   tests:
     runs-on: ubuntu-latest
     name: Run Tests
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v6
       - name: Setup Just 📦
@@ -23,8 +23,9 @@ jobs:
       - name: Install dependencies 📦
         run: just install
       - name: Run tests and benchmarks ✅
-        uses: CodSpeedHQ/action@v3
+        uses: CodSpeedHQ/action@v4
         with:
+          mode: simulation
           run: just test
       - name: Upload coverage reports to Codecov 📦
         uses: codecov/codecov-action@v5
