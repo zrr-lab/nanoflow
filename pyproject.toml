@@ -103,7 +103,7 @@ ignore = ["F841", "PGH003", "B008", "RUF001", "RUF003"]
 "__init__.py" = ["F401", "I002"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["recognize"]
+known-first-party = ["nanoflow"]
 required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.format]
