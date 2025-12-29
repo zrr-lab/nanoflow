@@ -1,0 +1,35 @@
+name: README Translation Sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - README.md
+
+permissions:
+  contents: write
+  pull-requests: write
+  models: read
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: zrr-lab/readme-translation-sync@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "📝 docs: sync README.zh-CN.md translation"
+          title: "📝 docs: sync README.zh-CN.md translation"
+          body: |
+            This PR automatically syncs the Chinese translation with the latest changes in `README.md`.
+
+            Generated using GitHub Models.
+          branch: readme-translation-sync
+          delete-branch: true
+          labels: documentation
