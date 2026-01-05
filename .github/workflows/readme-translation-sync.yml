@@ -22,7 +22,7 @@ jobs:
       - uses: zrr-lab/readme-translation-sync@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "📝 docs: sync README.zh-CN.md translation"
           title: "📝 docs: sync README.zh-CN.md translation"
